@@ -1,0 +1,19 @@
+.cardImage
+{
+	width:50%;
+	height:50%;
+}
+.main
+{
+	width: 100%;
+	overflow:hidden;
+}
+.right
+{
+	width:50%;
+	float: left;
+}
+.left
+{
+	overflow:hidden;
+}

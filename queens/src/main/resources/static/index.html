@@ -6,12 +6,45 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
     <script src="js/mainController.js"></script>
+    <link rel="stylesheet" type="text/css" href="style/style.css">
     <title>Static Template</title>
   </head>
 
   <body>
     <h1>Find all the queens</h1>
     <div ng-controller="mainController" data-ng-init="suffleDeck()">
+    	
+    	draw
+    	<button type="button"  ng-click="drawCard()">Draw</button>
+    	<button type="button"  ng-click="show()">Show</button>
+    	<div class="main">
+    		<div class ="right">
+    	 		<img ng-src="{{deck.cards[0].image}}"> 
+    	 	</div>
+    	 	<div class ="left">
+    	 		<table>
+				  <tr >
+				    <td ng-repeat="card in queenPile"><img class="cardImage"  ng-src="{{card.image}}"></td>
+				  </tr>
+				</table>
+    	 	</div>
+    	</div>
+    	 <table>
+		  <tr >
+		    <td ng-repeat="card in heartPile"><img class="cardImage"  ng-src="{{card.image}}"></td>
+		  </tr>
+		  <tr >
+		    <td ng-repeat="card in spadePile"><img class="cardImage" ng-src="{{card.image}}"></td>
+		  </tr>
+		  <tr >
+		    <td ng-repeat="card in clubPile"><img class="cardImage" ng-src="{{card.image}}"></td>
+		  </tr>
+		  
+		  <tr >
+		    <td ng-repeat="card in diamondPile"><img class="cardImage" ng-src="{{card.image}}"></td>
+		  </tr>
+		  
+		</table>
     </div>
   </body>
 </html>
