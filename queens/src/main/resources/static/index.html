@@ -32,22 +32,24 @@
 				</table>
     	 	</div>
     	</div>
-    	 <table>
-		  <tr >
-		    <td ng-repeat="card in heartPile"><img class="cardImage"  ng-src="{{card.image}}"></td>
-		  </tr>
-		  <tr >
-		    <td ng-repeat="card in spadePile"><img class="cardImage" ng-src="{{card.image}}"></td>
-		  </tr>
-		  <tr >
-		    <td ng-repeat="card in clubPile"><img class="cardImage" ng-src="{{card.image}}"></td>
-		  </tr>
-		  
-		  <tr >
-		    <td ng-repeat="card in diamondPile"><img class="cardImage" ng-src="{{card.image}}"></td>
-		  </tr>
-		  
-		</table>
+    	<div ng-show = "show">
+	    	 <table >
+			  <tr >
+			    <td ng-repeat="card in heartPile"><img class="cardImage"  ng-src="{{card.image}}"></td>
+			  </tr>
+			  <tr >
+			    <td ng-repeat="card in spadePile"><img class="cardImage" ng-src="{{card.image}}"></td>
+			  </tr>
+			  <tr >
+			    <td ng-repeat="card in clubPile"><img class="cardImage" ng-src="{{card.image}}"></td>
+			  </tr>
+			  
+			  <tr >
+			    <td ng-repeat="card in diamondPile"><img class="cardImage" ng-src="{{card.image}}"></td>
+			  </tr>
+			  
+			</table>
+		</div>
     </div>
   </body>
 </html>
