@@ -8,12 +8,19 @@
 	width: 100%;
 	overflow:hidden;
 }
-.right
+.col
 {
-	width:50%;
 	float: left;
+    width: 33.33%;
 }
-.left
+.log
 {
-	overflow:hidden;
+	overflow-y:auto;
+	height: 315px;
+}
+
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+    }
 }

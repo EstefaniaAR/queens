@@ -18,10 +18,15 @@
     	<button type="button"  ng-click="drawCard()">Draw</button>
     	<button type="button"  ng-click="show()">Show</button>
     	<div class="main">
-    		<div class ="right">
+    		<div class ="col">
     	 		<img ng-src="{{deck.cards[0].image}}"> 
     	 	</div>
-    	 	<div class ="left">
+    	 	<div class ="col log">
+    	 		<pre>
+    	 			{{log}}
+    	 		</pre> 
+    	 	</div>
+    	 	<div class ="col">
     	 		<table>
 				  <tr >
 				    <td ng-repeat="card in queenPile"><img class="cardImage"  ng-src="{{card.image}}"></td>

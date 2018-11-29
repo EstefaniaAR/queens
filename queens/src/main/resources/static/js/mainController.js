@@ -7,6 +7,8 @@ app.controller("mainController", ["$scope","$http",function($scope, $http)
 	$scope.clubPile=[];
 	$scope.spadePile=[];
 	$scope.queenPile = [];
+	$scope.log="".trim();
+	
     $scope.suffleDeck = function() 
     {
     	var resource = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1";
@@ -53,6 +55,7 @@ app.controller("mainController", ["$scope","$http",function($scope, $http)
           {
         	  $scope.queenPile.push($scope.deck.cards[0]);
           }
+          $scope.log = $scope.log+ "Machine draws a "+ $scope.deck.cards[0].value +" of "+ $scope.deck.cards[0].suit + " card.\r\n";
           
         },
         function errorCallback(response) 
@@ -82,14 +85,17 @@ app.controller("mainController", ["$scope","$http",function($scope, $http)
     			valueA = 11;
     		if(valueB == "JACK")
     			valueB = 11;
+    		
     		if(valueA == "QUEEN")
     			valueA = 12;
     		if(valueB == "QUEEN")
         		valueB = 12;
+    		
         	if(valueA == "KING")
         		valueA = 13;
         	if(valueB == "KING")
-        		valueB == 13;
+        		valueB = 13;
+        	
         	if(valueA == "ACE")
         		valueA = 14;
         	if(valueB == "ACE")
@@ -98,8 +104,8 @@ app.controller("mainController", ["$scope","$http",function($scope, $http)
         	valueA = Number(valueA);
         	valueB = Number(valueB);
         	
-        	console.log("a:"+valueA+" type:"+typeof valueA);
-        	console.log("b:"+valueB+" type: "+typeof valueB);
+        	console.log("value: "+a.value+" suit: "+a.suit+" a:"+valueA+" type:"+typeof valueA);
+        	console.log("value: "+b.value+" suit: "+b.suit+" b:"+valueB+" type: "+typeof valueB);
         		
         	if(valueA > valueB)
         		return 1;
