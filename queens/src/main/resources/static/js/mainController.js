@@ -9,12 +9,14 @@ app.controller("mainController", ["$scope","$http","$q",function($scope, $http,$
 	$scope.queenPile = [];
 	$scope.log="".trim();
 	$scope.show = false;
+	$scope.showLabel = false;
 
 	$scope.doStuff= function()
 	{
 		var promise =suffle();
 		promise.then(function(greeting) 
 		{
+			$scope.showLabel = true;
 			$scope.deck= promise.$$state.value;
 			draw();
 		}, function(reason) {

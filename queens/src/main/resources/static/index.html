@@ -11,20 +11,32 @@
   </head>
 
   <body>
-    <h1>Find all the queens</h1>
     <div ng-controller="mainController" >
-    	
-    	<button type="button"  ng-click="doStuff()">Start the program </button>
-    	<div class="main">
+    	<div class="center">
+    		<h1>Find all the queens</h1>
+    		<p>
+    			This program finds all queens within a random deck from an API.
+    			When the program finished, all the cards drawed are shown in orden.
+    		</p>
+    	</div>
+    	<div class ="center ">
+    		<button type="button"  ng-click="doStuff()">Start the program </button>
+    	</div>
+    	<div class="main" ng-show="showLabel">
     		<div class ="col">
+    			<h3>Current Card</h3>
     	 		<img ng-src="{{deck.cards[0].image}}"> 
     	 	</div>
-    	 	<div class ="col log">
-    	 		<pre>
-    	 			{{log}}
-    	 		</pre> 
+    	 	<div class ="col" ng-show="showLabel">
+    	 		<h3>Log</h3>
+    	 		<div class ="log">
+	    	 		<pre>
+	    	 			{{log}}
+	    	 		</pre> 
+    	 		</div>
     	 	</div>
-    	 	<div class ="col">
+    	 	<div class ="col" ng-show ="showLabel">
+    	 		<h3>Queens drawed</h3>
     	 		<table>
 				  <tr >
 				    <td ng-repeat="card in queenPile"><img class="cardImage"  ng-src="{{card.image}}"></td>
@@ -32,22 +44,26 @@
 				</table>
     	 	</div>
     	</div>
+    	
     	<div ng-show = "show">
+    		<h3>Cards drawed in order</h3>
 	    	 <table >
-			  <tr >
-			    <td ng-repeat="card in heartPile"><img class="cardImage"  ng-src="{{card.image}}"></td>
-			  </tr>
-			  <tr >
-			    <td ng-repeat="card in spadePile"><img class="cardImage" ng-src="{{card.image}}"></td>
-			  </tr>
-			  <tr >
-			    <td ng-repeat="card in clubPile"><img class="cardImage" ng-src="{{card.image}}"></td>
-			  </tr>
-			  
-			  <tr >
-			    <td ng-repeat="card in diamondPile"><img class="cardImage" ng-src="{{card.image}}"></td>
-			  </tr>
-			  
+				  <tr >
+				  	<th>Hearts</th>
+				    <td ng-repeat="card in heartPile"><img class="cardImage"  ng-src="{{card.image}}"></td>
+				  </tr>
+				  <tr>
+				    <th>Spades</th>
+				    <td ng-repeat="card in spadePile"><img class="cardImage" ng-src="{{card.image}}"></td>
+				  </tr>
+				  <tr>
+				    <th>Clubs</th>
+				    <td ng-repeat="card in clubPile"><img class="cardImage" ng-src="{{card.image}}"></td>
+				  </tr>
+				  <tr>
+				    <th>Diamonds</th>
+				    <td ng-repeat="card in diamondPile"><img class="cardImage" ng-src="{{card.image}}"></td>
+				  </tr>
 			</table>
 		</div>
     </div>
