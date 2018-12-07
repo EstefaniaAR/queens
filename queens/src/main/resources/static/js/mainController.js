@@ -1,6 +1,49 @@
-var app = angular.module("app", []);
 
-app.controller("mainController", ["$scope","$http","$q",function($scope, $http,$q) 
+/*
+ * Version 1.0
+ * ES6 && AngularJS
+ * Card JS
+ * Author: Estefania Arriaga 
+ * https://www.michaelbromley.co.uk/blog/exploring-es6-classes-in-angularjs-1.x/
+ */
+class Services 
+{
+	constructor ($http)
+	{
+		this.$http = $http;
+	}
+	getDeck()
+	{
+		return this.$http.get('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1');
+	}
+}
+class Factories
+{
+	constructor($timeout)
+	{
+		this.$timeout = $timeout;
+	}
+	draw(url)
+	{
+		this.$http.get(url);
+	}
+}
+
+class MainController
+{
+	constructor()
+	{
+	}
+}
+
+angular.module('app',[])
+.service('services', Services)
+.controller('mainController', MainController);
+
+/*
+ * var app = angular.module("app", []);
+
+app.controller("mainController", ["ngMaterial","$scope","$http","$q",function(ngMaterial,$scope, $http,$q) 
 {
 	$scope.heartPile=[];
 	$scope.diamondPile=[];
@@ -10,6 +53,8 @@ app.controller("mainController", ["$scope","$http","$q",function($scope, $http,$
 	$scope.log="".trim();
 	$scope.show = false;
 	$scope.showLabel = false;
+	
+  $scope.showButton = true;
 
 	$scope.doStuff= function()
 	{
@@ -17,6 +62,7 @@ app.controller("mainController", ["$scope","$http","$q",function($scope, $http,$
 		promise.then(function(greeting) 
 		{
 			$scope.showLabel = true;
+      $scope.showButton = false; 
 			$scope.deck= promise.$$state.value;
 			draw();
 		}, function(reason) {
@@ -49,8 +95,8 @@ app.controller("mainController", ["$scope","$http","$q",function($scope, $http,$
 	
 	function draw()
 	{
-		console.log("drwaing card...");
-    	console.log($scope.deck)
+		setTimeout( function ()
+	  {
     	var resource = "https://deckofcardsapi.com/api/deck/"+$scope.deck.deck_id+"/draw/?count=1";
     	
         $http.get(resource).then(
@@ -80,11 +126,15 @@ app.controller("mainController", ["$scope","$http","$q",function($scope, $http,$
           {
         	  $scope.queenPile.push($scope.deck.cards[0]);
           }
-          $scope.log = $scope.log+ "Machine draws a "+ $scope.deck.cards[0].value +" of "+ $scope.deck.cards[0].suit + " card.\r\n";
+          $scope.log = "\r\nMachine draws a "+ $scope.deck.cards[0].value +" of "+ $scope.deck.cards[0].suit + " card.\r\n"+$scope.log ;
           if($scope.queenPile.length < 4)
+          {
         	  draw();
+          }
           else 
+          {
         	  sort();
+          }
           
         },
         function errorCallback(response) 
@@ -93,6 +143,7 @@ app.controller("mainController", ["$scope","$http","$q",function($scope, $http,$
           console.log(response);
         }
       );
+    },1000);
 	}
 	
 	function sort()
@@ -147,4 +198,9 @@ app.controller("mainController", ["$scope","$http","$q",function($scope, $http,$
 	
   }
 ]);
+
+
+ */
+
+
 

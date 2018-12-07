@@ -4,68 +4,89 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+<!-- Angular JS Library-->
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  	 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.min.js"></script>
+  	 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-aria.min.js"></script>
+  	 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-messages.min.js"></script>
+<!-- Angular Material Library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"></script>
+<!-- Custom Libraries -->
     <script src="js/mainController.js"></script>
+<!-- Sylesheets -->
+     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+<!-- Custom Stylesheet -->
     <link rel="stylesheet" type="text/css" href="style/style.css">
-    <title>Static Template</title>
+    <title>Queen Test</title>
   </head>
 
-  <body>
-    <div ng-controller="mainController" >
-    	<div class="center">
-    		<h1>Find all the queens</h1>
-    		<p>
-    			This program finds all queens within a random deck from an API.
-    			When the program finished, all the cards drawed are shown in orden.
-    		</p>
-    	</div>
-    	<div class ="center ">
-    		<button type="button"  ng-click="doStuff()">Start the program </button>
-    	</div>
-    	<div class="main" ng-show="showLabel">
-    		<div class ="col">
-    			<h3>Current Card</h3>
-    	 		<img ng-src="{{deck.cards[0].image}}"> 
-    	 	</div>
-    	 	<div class ="col" ng-show="showLabel">
-    	 		<h3>Log</h3>
-    	 		<div class ="log">
-	    	 		<pre>
-	    	 			{{log}}
-	    	 		</pre> 
-    	 		</div>
-    	 	</div>
-    	 	<div class ="col" ng-show ="showLabel">
-    	 		<h3>Queens drawed</h3>
-    	 		<table>
-				  <tr >
-				    <td ng-repeat="card in queenPile"><img class="cardImage"  ng-src="{{card.image}}"></td>
-				  </tr>
-				</table>
-    	 	</div>
-    	</div>
+  <body ng-controller="mainController as mc" ng-cloak>
+    <div layout="row" layout-sm="column"><!-- Main Content -->
+    <!-- Header of the project. Displays the main purpose of the  Project-->
+    	<header class ="box">
+    		<div class="center">
+	    		<h1>Cards JS</h1>
+	        	<hr>
+	        	<h3>Requeriments</h3>
+	        	<hr>
+        	</div>
+        	<div>
+	    		<ul>
+	    			<li><span>The task is to write a program that draws cards from a deck. This program needs to keep drawing cards from the deck until it has drawn a QUEEN of every suit.</span></li>
+		          	<li><span>Once you've drawn all of the QUEENS please display the results of the draw in the following way.</span></li>
+		          	<li><span>Show all of the cards that were drawn for each suit, and sort the cards by value (Aces are high)example: Hearts: [2, 3, Jack, Queen]</span></li>
+	    		</ul>
+    		</div>
+    	</header>
+  <!-- Main content of the project. Shows all the process -->
+  		<div>
+  <!-- Main Button. It starts the process -->
+	    	<div flex class ="center">
+	    		<button type="button" class="btn" ng-show="showButton" >Start the program </button>
+	    	</div>
+	    	
+	    	<div layout="row" layout-sm="column" layout-align="space-around">
+		      <md-progress-circular md-mode="indeterminate" ></md-progress-circular>
+		    </div>
+	    	{{mc.deck}}
+	    	<div flex class="main" ng-show="showLabel">
+	    		<div class ="col">
+	    			<h3>Current Card</h3>
+	    			<div>
+	    	 			<img class="box" ng-src="{{deck.cards[0].image}}">
+	    	 		</div> 
+	    	 	</div>
+	    	 		    	 	
+	    	 	<div class ="col" ng-show ="showLabel">
+	    	 		<h3>Drawn Queens</h3>
+					<div class="pile" ng-repeat="card in queenPile">
+					    <img  ng-src="{{card.image}}">
+					</div>
+	    	 	</div>
+	    	</div>
     	
-    	<div ng-show = "show">
-    		<h3>Cards drawed in order</h3>
-	    	 <table >
-				  <tr >
-				  	<th>Hearts</th>
-				    <td ng-repeat="card in heartPile"><img class="cardImage"  ng-src="{{card.image}}"></td>
-				  </tr>
-				  <tr>
-				    <th>Spades</th>
-				    <td ng-repeat="card in spadePile"><img class="cardImage" ng-src="{{card.image}}"></td>
-				  </tr>
-				  <tr>
-				    <th>Clubs</th>
-				    <td ng-repeat="card in clubPile"><img class="cardImage" ng-src="{{card.image}}"></td>
-				  </tr>
-				  <tr>
-				    <th>Diamonds</th>
-				    <td ng-repeat="card in diamondPile"><img class="cardImage" ng-src="{{card.image}}"></td>
-				  </tr>
-			</table>
+	    	<div ng-show = "show">
+	    		<h3>Drawn cards in order</h3>
+		    	 <table >
+					  <tr >
+					  	<th>Hearts</th>
+					    <td ng-repeat="card in heartPile"><img class="cardImage"  ng-src="{{card.image}}"></td>
+					  </tr>
+					  <tr>
+					    <th>Spades</th>
+					    <td ng-repeat="card in spadePile"><img class="cardImage" ng-src="{{card.image}}"></td>
+					  </tr>
+					  <tr>
+					    <th>Clubs</th>
+					    <td ng-repeat="card in clubPile"><img class="cardImage" ng-src="{{card.image}}"></td>
+					  </tr>
+					  <tr>
+					    <th>Diamonds</th>
+					    <td ng-repeat="card in diamondPile"><img class="cardImage" ng-src="{{card.image}}"></td>
+					  </tr>
+				</table>
+			</div>
 		</div>
-    </div>
+    </div><!--./Main Content -->
   </body>
 </html>
