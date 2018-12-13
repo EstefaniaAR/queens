@@ -12,7 +12,7 @@
 <!-- Angular Material Library -->
   	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"></script>
 <!-- Custom Libraries -->
-    <script src="js/mainController.js"></script>
+    <script src="js/app.js"></script>
 <!-- Sylesheets -->
      <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
 <!-- Custom Stylesheet -->
@@ -21,7 +21,7 @@
   </head>
 
   <body ng-controller="mainController as mc" ng-cloak>
-    <div layout="row" layout-sm="column"><!-- Main Content -->
+    <div class ="content" layout="row" layout-sm="column"><!-- Main Content -->
     <!-- Header of the project. Displays the main purpose of the  Project-->
     	<header class ="box">
     		<div class="center">
@@ -41,50 +41,43 @@
   <!-- Main content of the project. Shows all the process -->
   		<div>
   <!-- Main Button. It starts the process -->
-	    	<div flex class ="center">
-	    		<button type="button" class="btn" ng-show="showButton" >Start the program </button>
-	    	</div>
-	    	
-	    	<div layout="row" layout-sm="column" layout-align="space-around">
-		      <md-progress-circular md-mode="indeterminate" ></md-progress-circular>
-		    </div>
-	    	{{mc.deck}}
-	    	<div flex class="main" ng-show="showLabel">
-	    		<div class ="col">
+	    	<div class ="center" ng-show="mc.showButton">
+	    		<button type="button" class="btn" ng-click="mc.doProcess()" >Start the program </button>
+            </div>
+            
+	    	<div class="main" ng-show="mc.startProcess">
+	    		<div class ="right_col center">
 	    			<h3>Current Card</h3>
 	    			<div>
-	    	 			<img class="box" ng-src="{{deck.cards[0].image}}">
+	    	 			<img class="box" ng-src="{{mc.card.image}}">
 	    	 		</div> 
 	    	 	</div>
 	    	 		    	 	
-	    	 	<div class ="col" ng-show ="showLabel">
+	    	 	<div class ="left_col center" >
 	    	 		<h3>Drawn Queens</h3>
-					<div class="pile" ng-repeat="card in queenPile">
+					<div class="row" ng-repeat="card in mc.queenPile">
 					    <img  ng-src="{{card.image}}">
 					</div>
 	    	 	</div>
 	    	</div>
-    	
-	    	<div ng-show = "show">
+	    	<div class="main center" ng-show="mc.showCards">
 	    		<h3>Drawn cards in order</h3>
-		    	 <table >
-					  <tr >
-					  	<th>Hearts</th>
-					    <td ng-repeat="card in heartPile"><img class="cardImage"  ng-src="{{card.image}}"></td>
-					  </tr>
-					  <tr>
-					    <th>Spades</th>
-					    <td ng-repeat="card in spadePile"><img class="cardImage" ng-src="{{card.image}}"></td>
-					  </tr>
-					  <tr>
-					    <th>Clubs</th>
-					    <td ng-repeat="card in clubPile"><img class="cardImage" ng-src="{{card.image}}"></td>
-					  </tr>
-					  <tr>
-					    <th>Diamonds</th>
-					    <td ng-repeat="card in diamondPile"><img class="cardImage" ng-src="{{card.image}}"></td>
-					  </tr>
-				</table>
+                <div class="mid_col">
+                    <h3>SPADE</h3>
+				    <div class ="main" ng-repeat="card in mc.spadePile"><img  ng-src="{{card.image}}"></div>
+                </div>
+                <div class="mid_col">
+                    <h3>CLUB</h3>
+				    <div class ="main" ng-repeat="card in mc.clubPile"><img  ng-src="{{card.image}}"></div>
+				</div>
+                <div class="mid_col">
+                    <h3>DIAMOND</h3>
+                    <div class ="main" ng-repeat="card in mc.diamondPile"><img  ng-src="{{card.image}}"></div>
+                </div>
+                <div class="mid_col">
+                    <h3>HEART</h3>
+                    <div class ="main" ng-repeat="card in mc.heartPile"><img  ng-src="{{card.image}}"></div>
+                </div>
 			</div>
 		</div>
     </div><!--./Main Content -->

@@ -2,17 +2,22 @@ body
 {
 	
   background: #00bf8f; 
-  background: -webkit-linear-gradient(to right, #00bf8f, #001510); 
-  background: linear-gradient(to right, #00bf8f, #001510);
-  color: white;
+  background-image: url("../img/background.png");
+  background-size: 50% 40%;
+  color: black;
   font-family: Arial;
   padding:20px;
   margin: 20px;
 }
+
+.content
+{
+    background-color: rgba(255,255,255,0.7);
+    padding: 5px;
+}
 p
 {
 	font-weight: bolder;
-	font-size: 15px;
 	padding-bottom:30px;
 }
 pre
@@ -38,20 +43,34 @@ pre
     background-color: #42c5f4;
     color: white;
 }
-.cardImage
+.row
 {
-	width:50%;
-	height:50%;
+    display: inline-block;
+    margin:0px;
+    padding: 0px;
 }
+
 .main
 {
 	width: 100%;
-	overflow:hidden;
+    overflow:hidden;
+    background-color:rgba(0, 0, 0, 0);
 }
-.col
+.right_col
 {
 	float: left;
-    width: 50%;
+    width: 30%;
+}
+.left_col
+{
+	float: left;
+    width: 70%;
+}
+.mid_col
+{
+    float:left;
+    width: 25%;
+    background-color:rgba(0, 0, 0, 0);
 }
 .log
 {
@@ -71,20 +90,18 @@ pre
   	padding:10px;
   	border-radius: 25px;
 }
-.pile
-{
-	display: inline-block;
-	
-}
+
 @media only screen and (max-width:620px) 
 {
-  .main, .col, .log
+  .main, .right_col,.left_col, .log, .row
    {
     	width:100%;
     	text-align:center;
    }
    body
    {
-   	font-size: 10px !important;
+       font-size: 10px !important;
+       background-size: 30% 10%;
    }
+
 }

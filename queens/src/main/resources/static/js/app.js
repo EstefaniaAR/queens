@@ -6,39 +6,152 @@
  * Author: Estefania Arriaga 
  * https://www.michaelbromley.co.uk/blog/exploring-es6-classes-in-angularjs-1.x/
  */
+const URLDECK= 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
+
 class Services 
 {
-	constructor ($http)
+	constructor ($http,$timeout,$q)
 	{
-		this.$http = $http;
+        this.http = $http
+        this.timeout = $timeout;
+        this.q=$q;
 	}
-	getDeck()
+	getDeck(url, timeout)
 	{
-		return this.$http.get('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1');
-	}
-}
-class Factories
+        return new this.q ((resolve,reject)=>
+        {
+            this.timeout(()=>
+            {
+                this.http.get(url)
+                .then(result => resolve(result.data))
+                .catch(err => reject(err));
+            },timeout)
+        });
+    }
+
+    draw(deckId,timeout=1000)
+    {
+        return new this.q ((resolve,reject)=>
+        {
+            setTimeout(()=>
+            {
+                this.http.get(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+                .then(result => resolve(result.data))
+                .catch(err => reject(err));
+            },timeout)
+        });
+    }
+};
+
+class Factory
 {
-	constructor($timeout)
-	{
-		this.$timeout = $timeout;
-	}
-	draw(url)
-	{
-		this.$http.get(url);
-	}
+    returnNumber(param)
+    {
+        if(!Number.isInteger(param))
+        {
+            switch(param)
+            {
+                case "JACK":
+                    return 11;
+                case "QUEEN":
+                    return 12;
+                case "KING":
+                    return 13;
+                case "ACE":
+                    return 14;
+            }
+        }
+        return Number(param);
+    }
+
 }
+
 
 class MainController
 {
-	constructor()
+    
+	constructor(services,factories)
 	{
-	}
+        this.services = services;
+        this.factory = factories;
+        this.card={};
+        this.showCards=false;
+        this.startProcess = false; 
+        this.showButton = true;
+        this.queenPile =[];
+        this.heartPile=[];
+        this.diamondPile=[];
+        this.spadePile=[];
+        this.clubPile=[];
+    }
+
+    doProcess()
+    {
+        this.showButton=false;
+        this.services.getDeck(URLDECK,0)
+        .then((data)=>
+        {
+            this.startProcess=true;
+            this.recursiveDraw(data.deck_id);
+        })
+        .catch((err)=> 
+        {
+            alert(err);
+            return;
+        }); 
+    }
+
+    recursiveDraw(deck_id)
+    {   
+        this.services.draw(deck_id)
+        .then((data)=>
+        {
+            this.card = data.cards[0];
+            switch (this.card.suit)
+            {
+                case "HEARTS":
+          		this.heartPile.push(this.card);
+          		break;
+          		
+          	    case "DIAMONDS":
+          		this.diamondPile.push(this.card);
+          		break;
+          		
+          	    case "CLUBS":
+          		this.clubPile.push(this.card);
+          		break;
+          		
+          	    case "SPADES":
+          		this.spadePile.push(this.card);
+          		break;
+            }
+            if(this.card.value == "QUEEN")
+            {
+                this.queenPile.push(this.card);
+            }
+            if(this.queenPile.length == 4)
+            {
+                this.heartPile.sort((a,b)=> this.factory.returnNumber(a.value)-this.factory.returnNumber(b.value));
+                this.clubPile.sort((a,b)=> this.factory.returnNumber(a.value)-this.factory.returnNumber(b.value));
+                this.diamondPile.sort((a,b)=> this.factory.returnNumber(a.value)-this.factory.returnNumber(b.value));
+                this.spadePile.sort((a,b)=> this.factory.returnNumber(a.value)-this.factory.returnNumber(b.value));
+                this.showCards=true;
+                setTimeout(() =>{ alert("Done: All queens have been found. Showing all cards"); }, 500);
+                return;
+            }
+            return this.recursiveDraw(deck_id);
+        })
+        .catch((err)=>
+        {
+            alert(err);
+        });
+    }
 }
 
 angular.module('app',[])
 .service('services', Services)
-.controller('mainController', MainController);
+.controller('mainController', MainController)
+.factory('factories',Factory);
 
 /*
  * var app = angular.module("app", []);
